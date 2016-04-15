@@ -29,6 +29,21 @@
      ]
  };
 
+  var albumDescendents = {
+     title: 'Milo Goes to College',
+     artist: 'The Descendents',
+     label: 'New Alliance Records',
+     year: '1982',
+     albumArtUrl: 'http://www.amoeba.com/admin/uploads/albums/covers/other//Descendents_MiloGoesToCollege.jpg',
+     songs: [
+         { title: 'Myage', duration: '2:01' },
+         { title: 'I Wanna Be a Bear', duration: '0:44' },
+         { title: 'Im Not a Loser', duration: '1:29'},
+         { title: 'Parents', duration: '1:40' },
+         { title: 'Tonyage', duration: '0:58'}
+     ]
+ };
+
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -41,14 +56,15 @@
      return template;
  };
 
+ var albumTitle = document.getElementsByClassName('album-view-title')[0];
+ var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+ var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+ var albumImage = document.getElementsByClassName('album-cover-art')[0];    var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+ 
+
   var setCurrentAlbum = function(album) {
      // #1
-     var albumTitle = document.getElementsByClassName('album-view-title')[0];
-     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-     var albumImage = document.getElementsByClassName('album-cover-art')[0];
-     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
- 
+     
      // #2
      albumTitle.firstChild.nodeValue = album.title;
      albumArtist.firstChild.nodeValue = album.artist;
@@ -66,4 +82,15 @@
  
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
+
+     var albums = [albumPicasso, albumMarconi, albumDescendents]
+     var index = 1;
+     albumImage.addEventListener("click", function(event) {
+        setCurrentAlbum(album[index]);
+        index++;
+        if (index == albums.length) {
+            index = 0;
+        }
+     });
+
  };
