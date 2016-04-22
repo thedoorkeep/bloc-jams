@@ -140,12 +140,15 @@ var findParentByClassName = function(element, targetClass) {
      setCurrentAlbum(albumPicasso);
 
  songListContainer.addEventListener('mouseover', function(event) {
-    // #1
-         // Only target individual song rows during event delegation
-         if (event.target.parentElement.className === 'album-view-song-item') {
-             event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
-         }
-     });
+    if (event.target.parentElement.className === 'album-view-song-item') {
+            event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+            var songItem = getSongItem(event.target);
+
+            if (songItem.getAttribute('data-song-number') !== currentlyPlayingSong) {
+                songItem.innerHTML = playButtonTemplate;
+            }
+    }
+});
 
  for (var i = 0; i < songRows.length; i++) {
          songRows[i].addEventListener('mouseleave', function(event) {
